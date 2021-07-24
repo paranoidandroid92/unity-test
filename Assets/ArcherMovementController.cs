@@ -9,7 +9,7 @@ public class ArcherMovementController : MonoBehaviour
     public BoxCollider2D capsuleColider;
     public Rigidbody2D body;
     public SpriteRenderer spriteRenderer;
-    public GameObject arrowPrefab;
+    private GameObject arrowPrefab;
 
 
     public LayerMask groundLayer;
@@ -19,7 +19,9 @@ public class ArcherMovementController : MonoBehaviour
     public float jumpForce = 200;
     public float arrowForce = 500;
 
-
+    void Awake(){
+        arrowPrefab = Resources.Load<GameObject>("arrowPrefab");
+    }
     // Update is called once per frame
     void Update()
     {

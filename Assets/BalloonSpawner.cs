@@ -5,7 +5,7 @@ using UnityEngine;
 public class BalloonSpawner : MonoBehaviour
 {
 
-    public GameObject balloonPrefab;
+    private GameObject balloonPrefab;
 
     public float spawnPeriod = 3;
     public float spawnTimer;
