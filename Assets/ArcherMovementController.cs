@@ -9,7 +9,6 @@ public class ArcherMovementController : MonoBehaviour
     public BoxCollider2D capsuleColider;
     public Rigidbody2D body;
     public SpriteRenderer spriteRenderer;
-    private ArcherAttackController attackController;
 
     public LayerMask groundLayer;
 
@@ -22,7 +21,6 @@ public class ArcherMovementController : MonoBehaviour
     public float jumpTimeCounter = 0;
 
     void Awake(){
-        attackController = GetComponent<ArcherAttackController>();
     }
     // Update is called once per frame
     void Update()
@@ -52,15 +50,7 @@ public class ArcherMovementController : MonoBehaviour
             isJumping = false;
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            anim.SetBool("isAttacking", true);
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            anim.SetBool("isAttacking", false);
-            attackController.fireArrow();
-        }
+      
     }
 
     private void FixedUpdate(){
