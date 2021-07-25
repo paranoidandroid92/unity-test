@@ -9,18 +9,16 @@ public class ArcherMovementController : MonoBehaviour
     public BoxCollider2D capsuleColider;
     public Rigidbody2D body;
     public SpriteRenderer spriteRenderer;
-    private GameObject arrowPrefab;
-
+    private ArcherAttackController attackController;
 
     public LayerMask groundLayer;
 
     public Vector2 facingDirection = Vector2.right;
     public float moveSpeed = 5;
     public float jumpForce = 200;
-    public float arrowForce = 500;
 
     void Awake(){
-        arrowPrefab = Resources.Load<GameObject>("arrowPrefab");
+        attackController = GetComponent<ArcherAttackController>();
     }
     // Update is called once per frame
     void Update()
@@ -45,7 +43,7 @@ public class ArcherMovementController : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             anim.SetBool("isAttacking", false);
-            fireArrow();
+            attackController.fireArrow();
         }
     }
 
@@ -99,17 +97,5 @@ public class ArcherMovementController : MonoBehaviour
         return hit.collider != null;
     }
 
-    private void fireArrow()
-    {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 atan = mousePosition - transform.position;
 
-        float degree = Mathf.Atan2(atan.y, atan.x) * Mathf.Rad2Deg;
-
-        GameObject arrow = Instantiate(arrowPrefab);
-        arrow.transform.position = transform.position;
-        arrow.transform.Rotate(new Vector3(0,0, degree));
-        Rigidbody2D arrowBody = arrow.GetComponent<Rigidbody2D>();
-        arrowBody.AddForce(atan.normalized * arrowForce);
-    }
 }

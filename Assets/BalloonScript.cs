@@ -14,16 +14,18 @@ public class BalloonScript : MonoBehaviour
 
 
     void OnCollisionEnter2D(Collision2D collision){
-        Debug.Log("collision");
         if(collision.collider.tag == "Arrow"){
             Destroy(gameObject);
         }
     }
 
       void OnTriggerEnter2D(Collider2D collider){
-          Debug.Log("trigger" + collider.tag);
         if(collider.tag == "Arrow"){
-            Destroy(gameObject);
+            GameObject arrow = collider.gameObject;
+            Rigidbody2D arrowBody = arrow.GetComponent<Rigidbody2D>();
+            if(!arrowBody.isKinematic){ // Kinematic means hit wall already
+                Destroy(gameObject);
+            }
         }
     }
 }       
