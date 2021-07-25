@@ -17,24 +17,40 @@ public class ArcherMovementController : MonoBehaviour
     public float moveSpeed = 5;
     public float jumpForce = 200;
 
+    public bool isJumping = false;
+    public float jumpTime = 3;
+    public float jumpTimeCounter = 0;
+
     void Awake(){
         attackController = GetComponent<ArcherAttackController>();
     }
     // Update is called once per frame
     void Update()
     {
-        float velX = Input.GetAxis("Horizontal") * moveSpeed; 
-
         updateSpriteDirection();
         updateSpriteAnimation();
         if (isGrounded())
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                body.AddForce(new Vector2(0, jumpForce));
+                isJumping = true;
+                jumpTimeCounter = jumpTime;
+                body.velocity = Vector2.up * jumpForce;
             }
         }
-        body.velocity = new Vector2(velX, body.velocity.y);
+
+        if(Input.GetKey(KeyCode.Space) && isJumping) {
+            if(jumpTimeCounter > 0 ){
+                body.velocity = Vector2.up * jumpForce;
+                jumpTimeCounter -= Time.deltaTime;
+            }else{
+                isJumping = false;  
+            }
+        }
+
+        if(Input.GetKeyUp(KeyCode.Space)) {
+            isJumping = false;
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -45,6 +61,11 @@ public class ArcherMovementController : MonoBehaviour
             anim.SetBool("isAttacking", false);
             attackController.fireArrow();
         }
+    }
+
+    private void FixedUpdate(){
+        float velX = Input.GetAxis("Horizontal") * moveSpeed; 
+        body.velocity = new Vector2(velX, body.velocity.y);
     }
 
     private void updateSpriteAnimation()

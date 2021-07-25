@@ -2066,7 +2066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2297,7 +2297,10 @@ MonoBehaviour:
     m_Bits: 64
   facingDirection: {x: 1, y: 0}
   moveSpeed: 4
-  jumpForce: 500
+  jumpForce: 30
+  isJumping: 0
+  jumpTime: 3
+  jumpTimeCounter: 0
 --- !u!61 &1166783635
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2358,7 +2361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowText: {fileID: 961810073}
-  arrowCount: 10
+  arrowCount: 100
   arrowForce: 100
 --- !u!1 &1416793305
 GameObject:
